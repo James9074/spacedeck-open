@@ -1,0 +1,21 @@
+version: '2'
+services:
+  spacedeck:
+    image: james9074/spacedeck
+    ports: 
+      - 9666:9666
+    links:
+      - mongo
+      - redis
+  redis:
+    image: redis:alpine
+    #    volumes:
+    #- /data/spacedeck/redis:/data
+  mongo:
+      image: mongo:latest
+      container_name: "mongodb"
+      environment:
+        - MONGO_DATA_DIR=/data/db
+        - MONGO_LOG_DIR=/dev/null
+      volumes:
+        - /data/spacedeck/db:/data/db
